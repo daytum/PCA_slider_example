@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[7]:
+# In[1]:
 
 
 from intake import cat
@@ -91,9 +91,6 @@ def create_plot():
     hplt = figure(toolbar_location=None, plot_height=400, x_range=(0,7), y_range=(0, 1.5), 
                   x_axis_label='Number of Occurances', y_axis_label='Scaled Reconstruction Error')
 
-    
-    lplt.circle(x='Scaled LogPerm', y='Scaled Por', source=ColumnDataSource(scaled_df))
-
     alpha = Slider(title="Rotation:", value=0.0, start=-np.pi/2., end=np.pi/2., step=0.1)
 
     variance_source_dict, principle_component_source_dict, variance_length_dict = rotate(alpha.value)
@@ -101,6 +98,8 @@ def create_plot():
     variance_source = ColumnDataSource(variance_source_dict)
     principle_component_source = ColumnDataSource(principle_component_source_dict)
     variance_length_source = ColumnDataSource(variance_length_dict)
+    
+    lplt.circle(x='Scaled LogPerm', y='Scaled Por', source=ColumnDataSource(scaled_df))
 
     lplt.multi_line('x', 'y', source=variance_source, color='red')
 
@@ -115,6 +114,7 @@ def create_plot():
 
     
     alpha.on_change('value', callback)
+    
     
     header = pn.panel("""<a href="https://www.daytum.org"><img width=200 
         src="https://github.com/daytum/logos/blob/master/daytum_logo_2019.png?raw=true"></a>
